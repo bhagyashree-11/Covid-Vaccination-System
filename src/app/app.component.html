@@ -1,0 +1,123 @@
+<div class="covidpro">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h3 class="text-center">COVID-19 Management System</h3>{{date | date:'dd/MM/YYYY hh:mm a'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <h4>Candidate List&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-user-plus" style="font-size:25px"(click)="openModal(template,'add')"></i></h4>
+        <ol class="list-group list-group-numbered">
+          <li class="list-group-item" style="background-color: #ebf4aa;" *ngFor="let candidate of candidateList; let i = index">{{candidate.name | titlecase}}
+            <!-- <span class="badge bg-success" >{{candidate.status}}</span><br> -->
+            <!-- <span class="badge bg-secondary">{{candidate.status}}</span><br> -->
+            <i class='fa fa-redo' style='font-size:15px;float:right' (click)="V1Done(i)"></i>
+            <i class="fa fa-edit" style="font-size:15px;float:right;margin-right:20px;" (click)="openModal(edittemplate,i)"></i>
+            <i class="fa fa-trash-alt" style="font-size:15px;float:right;margin-right:20px;" (click)="Delete(i)"></i>
+          </li>
+        </ol>
+
+        <div class="alert alert-success" *ngIf="showMessage == true">
+          <strong>Success!</strong> Candidate added Successfully
+        </div>
+
+      </div>
+      
+  
+      <div class="col-lg-3">
+        <h4>Vaccine 1 </h4>
+        <ol class="list-group list-group-numbered">
+          <li class="list-group-item" style="background-color: #fcd9f2;" *ngFor="let candidate of v1candidate; let i = index">{{candidate.name}}
+            <i class='fa fa-redo' style='font-size:20px;float:right' (click)="V2Done(i)"></i>
+            <i class='fas fa-undo' style='font-size:20px;float:right;margin-right:20px;' (click)="cBack(i)"></i></li>
+        </ol>
+      </div>
+  
+      <div class="col-lg-3">
+        <h4>Vaccine 2  </h4>
+        <ol class="list-group list-group-numbered">
+          <li class="list-group-item" style="background-color: rgb(188, 223, 236);" *ngFor="let v1candidate of v2candidate; let i = index">{{v1candidate.name}}
+            <i class='fa fa-redo' style='font-size:20px;float:right' (click)="BDone(i)"></i>
+            <i class='fas fa-undo' style='font-size:20px;float:right;margin-right:20px;' (click)="v1Back(i)"></i></li>
+        </ol>
+      </div>
+  
+      <div class="col-lg-3">
+        <h4>Booster Dose</h4>
+        <ol class="list-group list-group-numbered">
+          <li class="list-group-item" style="background-color: rgb(186, 186, 235);" *ngFor="let v2candidate of Bcandidate; let i = index">{{v2candidate.name}}
+            <i class='fas fa-undo' style='font-size:20px;float:right;margin-right:20px;' (click)="v2Back(i)"></i></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+<!--New modal-->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Candidate</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+   <!-- Modal body -->
+   <div class="modal-body">
+    <div class="mb-3 mt-3">
+      <label for="text" class="form-label">Name:</label>
+      <input type="text" class="form-control" placeholder="Enter Candidate Name" [(ngModel)] = "candidateName">
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="text" class="form-label">Age:</label>
+      <input type="number" class="form-control" placeholder="Enter Candidate Age" [(ngModel)] = "candidateAge">
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="text" class="form-label">Phone:</label>
+      <input type="number" class="form-control" placeholder="Enter Candidate PhoneNo." [(ngModel)] = "candidatePhone">
+    </div>
+  </div>
+
+  <!-- Modal footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modalRef?.hide()">Close</button>
+    <button type="submit" class="btn btn-primary" (click)="submit()" data-bs-dismiss="modal">Submit</button>
+  </div>
+</ng-template>
+
+<!--New modal-->
+<ng-template #edittemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit Candidate</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+   <!-- Modal body -->
+   <div class="modal-body">
+    <div class="mb-3 mt-3">
+      <label for="text" class="form-label">Name:</label>
+      <input type="text" class="form-control" placeholder="Enter Candidate Name" [(ngModel)] = "candidateName">
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="text" class="form-label">Age:</label>
+      <input type="number" class="form-control" placeholder="Enter Candidate Age" [(ngModel)] = "candidateAge">
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="text" class="form-label">Phone:</label>
+      <input type="number" class="form-control" placeholder="Enter Candidate PhoneNo." [(ngModel)] = "candidatePhone">
+    </div>
+  </div>
+
+  <!-- Modal footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="close()">Close</button>
+    <button type="submit" class="btn btn-primary" (click)="update()" data-bs-dismiss="modal">Upadate</button>
+  </div>
+</ng-template>
+
+
+</div>
